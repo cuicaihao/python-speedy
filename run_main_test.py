@@ -1,7 +1,6 @@
 import subprocess
 import os
-
-NEW_IMAGE = {"name": "Python 3.11", "image": "python:3.11-slim"}
+import pandas as pd
 
 TEST_IMAGES = [
     {"name": "Python 3.5", "image": "python:3.5-slim"},
@@ -10,11 +9,12 @@ TEST_IMAGES = [
     {"name": "Python 3.8", "image": "python:3.8-slim"},
     {"name": "Python 3.9", "image": "python:3.9-slim"},
     {"name": "Python 3.10", "image": "python:3.10-slim"},
+    {"name": "Python 3.11", "image": "python:3.11-slim"},
+    {"name": "Python 3.12", "image": "python:3.12-slim"}
 ]
 
 K_MER = 13
 SCRIPT = "single_test_run.py"
-
 
 ########
 # Main #
@@ -59,14 +59,17 @@ def test_version(image: str) -> float:
     return avg_time
 
 
-# Get test time for current Python version
-base_time = test_version(NEW_IMAGE["image"])
-print(f"新版本 {NEW_IMAGE['name']} 花费了 {base_time} 秒.\n")
+run_time = []
+exp_name: list[str] = [x['name'] for x in TEST_IMAGES]
 
 # Compare to previous Python versions
 for item in TEST_IMAGES:
     ttime = test_version(item["image"])
     print(
         f"{item['name']} 花费了 {ttime} 秒."
-        f"({NEW_IMAGE['name']} 比它快 {(ttime / base_time) - 1:.1%} )"
     )
+    run_time.append(ttime)
+
+# save exp_name and run_time to a pandas DataFrame then export to csv
+df = pd.DataFrame({'exp_name': exp_name, 'run_time': run_time})
+df.to_csv('run_main_results.csv', index=False)
