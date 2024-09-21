@@ -1,9 +1,9 @@
-exp_name,run_time
-Python 3.5,56.2748
-Python 3.6,57.7471
-Python 3.7,58.3071
-Python 3.8,58.0004
-Python 3.9,54.3149
-Python 3.10,49.9781
-Python 3.11,40.6746
-Python 3.12,38.9215
+Version,Runtime
+Python 3.5,72.9614
+Python 3.6,71.2707
+Python 3.7,74.5476
+Python 3.8,79.002
+Python 3.9,70.4012
+Python 3.10,65.0887
+Python 3.11,53.3336
+Python 3.12,49.7507
